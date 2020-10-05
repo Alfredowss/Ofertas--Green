@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import Welcome from './Welcome'
-import Login from './Login'
+import Login from '../Facebook'
 
 
 const Stack = createStackNavigator()
