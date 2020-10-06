@@ -12,7 +12,7 @@ class Form extends Component{
     getInfoFromToken = token => {
         const PROFILE_REQUEST_PARAMS = {
           fields: {
-            string: 'id,name,first_name,last_name,email,birthday', 
+            string: 'id,name,first_name,last_name,picture', 
           },
         };
         const profileRequest = new GraphRequest(
