@@ -10,7 +10,8 @@ class Login extends Component{
                 <Text style={style.header}>
                     Hola!
                 </Text>
-                <Form />
+
+                <Form navigation={this.props.navigation}/>
             </View>
             
         )
