@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, ScrollView} from 'react-native'
 import Form from '../Form'
 
 class Login extends Component{
 
     render(){
         return(
-            <View style={style.page}>
-                <Text style={style.header}>
-                    Hola!
-                </Text>
+                <View style={style.page}>
+                    <Text style={style.header}>
+                        Hola!
+                    </Text>
 
-                <Form navigation={this.props.navigation}/>
-            </View>
-            
+                    <Form navigation={this.props.navigation}/>
+                </View>    
         )
     }
 }

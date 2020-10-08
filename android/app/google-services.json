@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "134070393276",
+    "firebase_url": "https://ofertasgreen.firebaseio.com",
+    "project_id": "ofertasgreen",
+    "storage_bucket": "ofertasgreen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134070393276:android:50d0b7987390486e20f3b9",
+        "android_client_info": {
+          "package_name": "com.ofertasgreen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134070393276-fabmiue957e6n686klljl4pu1cjq2jvj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ofertasgreen",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "134070393276-4lf2h7bq7ooun2bktu21c1qqekngrd6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDL5OLXfNldCXXBvTQ60F3LVZyKm_FWHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134070393276-4lf2h7bq7ooun2bktu21c1qqekngrd6l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

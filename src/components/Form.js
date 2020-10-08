@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, TextInput, Image, View, Text , Pressable} from 'react-native'
+import { GoogleSigninButton } from '@react-native-community/google-signin';
 import facebookLib from '../lib/loginFacebook'
+import googleLib from '../lib/loginGoogle'
 
 class Form extends Component{
 
@@ -37,14 +39,17 @@ class Form extends Component{
 
                         <View style={style.center}>
                             <View style={style.plataformIcons}>
-                                <Pressable onPress={()=>{console.log(facebookLib.loginFacebook(this.props))}}>
+                                <Pressable onPress={()=>{facebookLib.loginFacebook(this.props)}}>
                                     <Image style={style.margin} 
                                         source={require('../assets/facebook.png')}/>
                                 </Pressable>
-                                <Image style={style.margin} source={require('../assets/gmail.png')}/>
+                                <Pressable onPress={()=>googleLib.signIn(this.props)}>
+                                    <Image style={style.margin} source={require('../assets/gmail.png')}/>
+                                </Pressable>
                                 <Image style={style.margin} source={require('../assets/twitter.png')}/>
                             </View>
                         </View>
+                
             </View>)
     }
 }
