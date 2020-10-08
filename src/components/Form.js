@@ -1,52 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, TextInput, Image, View, Text , Pressable} from 'react-native'
-import { 
-        AccessToken,
-        GraphRequest,
-        GraphRequestManager,
-        LoginManager
-        }  from 'react-native-fbsdk';
+import facebookLib from '../lib/loginFacebook'
 
 class Form extends Component{
-
-    getInfoFromToken = token => {
-        const PROFILE_REQUEST_PARAMS = {
-          fields: {
-            string: 'id,name,first_name,last_name,picture', 
-          },
-        };
-        const profileRequest = new GraphRequest(
-          '/me',
-          {token, parameters: PROFILE_REQUEST_PARAMS},
-          (error, user) => {
-            if (error) {
-              console.log('login info has error: ' + error);
-            } else {
-              this.props.navigation.navigate('home', user)
-            }
-          },
-        );
-        new GraphRequestManager().addRequest(profileRequest).start();
-      };
-    
-    loginFacebook = ()=>{
-        LoginManager.logOut()
-        LoginManager.logInWithPermissions(['public_profile']).then(
-            (result)=> {
-              if (result.isCancelled) {
-                alert('Login was cancelled');
-              } else {
-                    AccessToken.getCurrentAccessToken().then(data => {
-                    const accessToken = data.accessToken.toString();
-                    this.getInfoFromToken(accessToken);
-                  });
-              }
-            },
-            (error)=> {
-              alert('Login failed with error: ' + error);
-            }
-          );
-    }
 
     render(){ 
         return (<View style={style.Container}>
@@ -81,7 +37,7 @@ class Form extends Component{
 
                         <View style={style.center}>
                             <View style={style.plataformIcons}>
-                                <Pressable onPress={this.loginFacebook}>
+                                <Pressable onPress={()=>{console.log(facebookLib.loginFacebook(this.props))}}>
                                     <Image style={style.margin} 
                                         source={require('../assets/facebook.png')}/>
                                 </Pressable>
