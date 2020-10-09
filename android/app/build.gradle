@@ -1,5 +1,7 @@
 apply plugin: "com.android.application"
 
+apply plugin: 'com.google.gms.google-services'
+
 import com.android.build.OutputFile
 
 /**
@@ -183,6 +185,10 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0' // <-- add this; newer versions should work too
 

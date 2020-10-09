@@ -1,30 +1,30 @@
 import React, { Component } from 'react'
 import { StyleSheet, TextInput, Image, View, Text , Pressable} from 'react-native'
-import { GoogleSigninButton } from '@react-native-community/google-signin';
 import facebookLib from '../lib/loginFacebook'
 import googleLib from '../lib/loginGoogle'
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 class Form extends Component{
 
     render(){ 
         return (<View style={style.Container}>
-                    <Text style={style.headerContainer}>
-                        Crear cuenta
-                    </Text>
+                        <Text style={style.headerContainer}>
+                            Crear cuenta
+                        </Text>
 
-                    <View style={style.inputsContainer}>
-                        <TextInput style={style.inputs}
-                                placeholder="USUARIO"    
-                        />
-                        <TextInput placeholder="INTRODUCE TU CONTRASEÑA" 
-                                style={style.inputs}
-                        />
-                        <TextInput style={style.inputs}
-                                placeholder="NUMERO DE TELEFONO"
-                        />
-                    </View>
+                        <View style={style.inputsContainer}>
+                            <TextInput style={style.inputs}
+                                    placeholder="USUARIO"    
+                            />
+                            <TextInput placeholder="INTRODUCE TU CONTRASEÑA" 
+                                    style={style.inputs}
+                            />
+                            <TextInput style={style.inputs}
+                                    placeholder="NUMERO DE TELEFONO"
+                            />
+                        </View>
 
-                    <View style={style.direction}>
+                         <View style={style.direction}>
                             <Text style={style.span}>
                                 {`Crear  `} 
                                 <Image 
@@ -40,17 +40,17 @@ class Form extends Component{
                         <View style={style.center}>
                             <View style={style.plataformIcons}>
                                 <Pressable onPress={()=>{facebookLib.loginFacebook(this.props)}}>
-                                    <Image style={style.margin} 
+                                    <Image style={style.icon} 
                                         source={require('../assets/facebook.png')}/>
                                 </Pressable>
                                 <Pressable onPress={()=>googleLib.signIn(this.props)}>
-                                    <Image style={style.margin} source={require('../assets/gmail.png')}/>
+                                    <Image style={style.icon} source={require('../assets/gmail.png')}/>
                                 </Pressable>
-                                <Image style={style.margin} source={require('../assets/twitter.png')}/>
+                                <Image style={style.icon} source={require('../assets/twitter.png')}/>
                             </View>
                         </View>
                 
-            </View>)
+                </View>)
     }
 }
 
@@ -60,46 +60,44 @@ const style = StyleSheet.create({
         backgroundColor: '#FFF',
         borderTopRightRadius: 45,
         borderTopLeftRadius: 45,
-        paddingRight: '10%',
-        paddingLeft: '10%'
+        paddingRight: RFPercentage(5),
+        paddingLeft: RFPercentage(5)
     },
     headerContainer:{
         color: '#476758',
-        fontSize: 28,
+        fontSize: RFPercentage(4.2),
         fontWeight: 'bold',
-        marginTop: '5%',
+        marginTop: RFPercentage(3),
         textAlign: 'center',
     },
     inputsContainer:{
-        marginTop: '8%',
+        marginTop: RFPercentage(2.6),
     },
     inputs:{
         borderRadius: 12,
-        marginBottom: '7%',
+        marginBottom: RFPercentage(2.5),
         textAlign: 'center',
         backgroundColor: '#f7f7f7',
         color: '#656565',
-        fontSize: 15,
+        fontSize: RFPercentage(2.5),
         letterSpacing: .6,
         position:'relative',
-        paddingTop: '4%',
-        paddingBottom: '4%'
     },  
     span:{
         textAlign: 'right',
         color: '#D7AF58',
-        fontSize: 21,
+        fontSize: RFPercentage(3),
         fontWeight: 'bold',
-        marginBottom: '8%'
+        marginBottom: RFPercentage(2)
     },
     svgs:{
-        width: 20,
-        height: 20,
+        width: RFPercentage(2.6),
+        height: RFPercentage(2.6),
     },
     lines:{
-        borderBottomWidth: .9,
+        borderBottomWidth: RFPercentage(.1),
         borderBottomColor: 'black',
-        marginBottom: '8%'
+        marginBottom: RFPercentage(3)
     },
     plataformIcons:{
         flexDirection: 'row',
@@ -109,9 +107,9 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    margin:{
-        marginLeft: 15,
-        marginRight: 15,
+    icon:{
+        marginLeft: RFPercentage(2),
+        marginRight: RFPercentage(2),
         width: 30,
         height: 30,
     }

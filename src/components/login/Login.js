@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView} from 'react-native'
+import { View, Text, StyleSheet} from 'react-native'
+import { RFPercentage } from "react-native-responsive-fontsize";
+
 import Form from '../Form'
 
 class Login extends Component{
@@ -10,7 +12,7 @@ class Login extends Component{
                     <Text style={style.header}>
                         Hola!
                     </Text>
-
+                        
                     <Form navigation={this.props.navigation}/>
                 </View>    
         )
@@ -19,10 +21,10 @@ class Login extends Component{
 
 const style = StyleSheet.create({
     header:{
-        fontSize: 80,
+        fontSize: RFPercentage(16),
         fontWeight: 'bold',
-        marginTop: 40,
-        marginLeft: 55,
+        marginTop: RFPercentage(4),
+        marginLeft: RFPercentage(4),
         color: '#FFF',
         height: '30%'
     },
