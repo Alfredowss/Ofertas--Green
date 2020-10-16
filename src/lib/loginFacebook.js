@@ -18,7 +18,8 @@ import {
             if (error) {
               console.log('login info has error: ' + error);
             } else {
-              props.navigation.navigate('home', user)
+              let data = {id:user.id, photo:user.picture.data.url, name:user.name}
+              props.handlerLogin(data)
             }
           },
         );

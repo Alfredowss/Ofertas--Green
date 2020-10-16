@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Pressable, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
 
 
 class Welcome extends Component{
@@ -8,6 +8,11 @@ class Welcome extends Component{
         super(props)
     }
 
+    componentDidMount(){
+        setTimeout(()=>{
+            this.handlePress()
+        }, 300)
+    }
 
     handlePress = ()=>{
         this.props.navigation.navigate('Login-screen')
@@ -16,26 +21,18 @@ class Welcome extends Component{
     render(){
         return(
             <View style={styles.pageContainer}>
-                <Text style={styles.title}>OFERTAS GREEN</Text>
-                <Pressable onPress={this.handlePress}>
-                    <Image source={require('../../assets/logo.png')} />
-                </Pressable>
+                <Image  source={require('../../assets/logo.png')} />
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    title:{
-        color: '#FFF',
-        fontSize: 20,
-        fontWeight: '400'
-    },
     pageContainer:{
         flex: 1,
         alignItems: 'center',
         justifyContent:'center',
-        backgroundColor: '#5A7E6D'
+        backgroundColor: '#101F5A'
     }
 })
 

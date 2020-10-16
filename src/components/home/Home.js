@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, Pressable, Image } from 'react-native';
+import { View, Text, Button, Pressable, Image, StyleSheet, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import {
   createDrawerNavigator,
@@ -7,30 +7,12 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 
-let user= null;
+import { RFPercentage } from "react-native-responsive-fontsize";
 
-function Profile({ navigation }) {
-  return (
-      
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Button title="Show-Menu" onPress={() => navigation.toggleDrawer()} />
-        <Pressable onPress={() => navigation.openDrawer()}>
-            <Image style={{width: 80, height: 80}} source={{uri:`${user.picture.data.url}`}}/>
-            <Text style={{fontSize:25}}>Hello {`${user.name}`}</Text>
-        </Pressable>
-        <Button title="Go to Feed" onPress={() => navigation.navigate('feed')} />
-    </View>
-  );
-}
+import Feed from './Feed'
+import Profile from './Profile'
 
-function Feed({navigation}) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Feed Screen</Text>
-      <Button title="Go to profile" onPress={() => navigation.navigate('profile')} />
-    </View>
-  );
-}
+
 
 
 function CustomDrawerContent(props) {
@@ -44,13 +26,24 @@ function CustomDrawerContent(props) {
 const Drawer = createDrawerNavigator();
 
 function MyDrawer(props) {
+
+  const user = props.user;
+  const routePrimary = ((user.preferences.length == 0)?"profile":"Feed")
+
   return (
-    <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="profile" component={Profile} />
-      <Drawer.Screen name="feed" component={Feed} />
+    <Drawer.Navigator initialRouteName={routePrimary} drawerStyle={{
+      backgroundColor: '#FFF',
+      width: '100%',
+    }}
+    drawerContent={props => <CustomDrawerContent {...props} 
+    />}>
+      <Drawer.Screen initialParams={{user}} name="feed" component={Feed} />
+      <Drawer.Screen initialParams={{user}} name="profile" component={Profile} />
     </Drawer.Navigator>
   );
 }
+
+
 
 export default class Home extends React.Component {
 
@@ -58,12 +51,36 @@ export default class Home extends React.Component {
 
     render(){
 
-        user = this.props.route.params
+        const user = this.props.route.params
 
         return (
           <NavigationContainer  independent={true} >
-            <MyDrawer />
+            <View style={style.headerContainer}>
+                <Image style={style.logo} source={require('../../assets/logopequeño.png')} />
+                <Text style={style.header}>
+                  OFERTAS GREEN
+                </Text>
+            </View>
+            <MyDrawer user={user}/>
           </NavigationContainer>
         )
     }
 }
+
+
+const style = StyleSheet.create({
+  headerContainer:{
+    backgroundColor: '#101F5A',
+    height: RFPercentage(10),
+    justifyContent: 'center',
+    alignItems:'center'
+  },
+  header:{
+    color: '#FFF',
+    fontSize: RFPercentage(2.8)
+  },
+  logo:{
+    position: 'absolute',
+    left: RFPercentage(10)
+  }
+})

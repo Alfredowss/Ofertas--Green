@@ -6,6 +6,34 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 
 class Form extends Component{
 
+    state = {
+        fields:{},
+        empity: false
+    }
+
+    handleChange = (name, value)=>{
+        const fields = this.state.fields
+        this.setState({
+            fields:{
+                ...fields,
+                [name]: value
+            },
+            empity: false
+        })
+    }
+
+    handleCreateAccount=()=>{
+        const {name, password, telephone} = this.state.fields
+        if(name && password && telephone){
+            this.props.handlerLogin(this.state.fields)
+        }else{
+            this.setState({
+                fields:{},
+                empity: true
+            })
+        }
+    }
+
     render(){ 
         return (<View style={style.Container}>
                         <Text style={style.headerContainer}>
@@ -13,19 +41,19 @@ class Form extends Component{
                         </Text>
 
                         <View style={style.inputsContainer}>
-                            <TextInput style={style.inputs}
+                            <TextInput onChangeText={(value)=>this.handleChange('name', value)} style={style.inputs}
                                     placeholder="USUARIO"    
                             />
-                            <TextInput placeholder="INTRODUCE TU CONTRASEÑA" 
+                            <TextInput onChangeText={(value)=>this.handleChange('password', value)} placeholder="INTRODUCE TU CONTRASEÑA" 
                                     style={style.inputs}
                             />
-                            <TextInput style={style.inputs}
+                            <TextInput onChangeText={(value)=>this.handleChange('telephone', value)} style={style.inputs}
                                     placeholder="NUMERO DE TELEFONO"
                             />
                         </View>
 
                          <View style={style.direction}>
-                            <Text style={style.span}>
+                            <Text style={style.span} onPress={this.handleCreateAccount}>
                                 {`Crear  `} 
                                 <Image 
                                     source={require('../assets/flecha.png')}
@@ -36,7 +64,7 @@ class Form extends Component{
 
                         <View style={style.lines}>
                         </View>
-
+                        {(this.state.empity && <Text style={style.error}>Campos vacios</Text>)}
                         <View style={style.center}>
                             <View style={style.plataformIcons}>
                                 <Pressable onPress={()=>{facebookLib.loginFacebook(this.props)}}>
@@ -64,8 +92,8 @@ const style = StyleSheet.create({
         paddingLeft: RFPercentage(5)
     },
     headerContainer:{
-        color: '#476758',
-        fontSize: RFPercentage(4.2),
+        color: '#101F5A',
+        fontSize: RFPercentage(3.8),
         fontWeight: 'bold',
         marginTop: RFPercentage(3),
         textAlign: 'center',
@@ -79,7 +107,7 @@ const style = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: '#f7f7f7',
         color: '#656565',
-        fontSize: RFPercentage(2.5),
+        fontSize: RFPercentage(2.2),
         letterSpacing: .6,
         position:'relative',
     },  
@@ -112,6 +140,9 @@ const style = StyleSheet.create({
         marginRight: RFPercentage(2),
         width: 30,
         height: 30,
+    },
+    error:{
+        color: 'red'
     }
 })
 

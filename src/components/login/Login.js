@@ -1,21 +1,61 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, Image} from 'react-native'
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 import Form from '../Form'
 
 class Login extends Component{
 
-    render(){
-        return(
-                <View style={style.page}>
+    state = {
+        loading:false
+    }
+
+    handlerLogin= async (data)=>{
+        this.setState({loading: true})
+        try{
+            const response =  await  fetch('https://backend-blush-five.vercel.app/user',{
+                    method: 'POST',
+                    headers:{
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+            
+            const user = await response.json()
+
+            this.props.navigation.navigate('home', user)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+ 
+    renderContent=()=>{
+        if(this.state.loading){
+            return(
+                <View style={style.loaderContainer}>
+                    <Image style={style.loader} source={require('../../assets/loader.gif')}/>
+                </View>
+            )
+        }else{
+            return(
+                <>
                     <Text style={style.header}>
                         Hola!
                     </Text>
-                        
-                    <Form navigation={this.props.navigation}/>
-                </View>    
-        )
+                    <Image style={style.logo} source={require('../../assets/logo-2.png')} />      
+                    <Form  handlerLogin={this.handlerLogin}/>
+                </>   
+            )
+        }
+    }
+    render(){
+        return(
+            <View style={style.page}>
+                {this.renderContent()}
+             </View>
+        )   
     }
 }
 
@@ -26,11 +66,25 @@ const style = StyleSheet.create({
         marginTop: RFPercentage(4),
         marginLeft: RFPercentage(4),
         color: '#FFF',
-        height: '30%'
+        height: RFPercentage(35)
     },
     page:{
-        backgroundColor: '#5A7E6D',
+        backgroundColor: '#101F5A',
         flex: 1
+    }, 
+    loaderContainer:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    loader:{
+        width: RFPercentage(16),
+        height: RFPercentage(16)
+    },
+    logo:{
+        position: 'absolute',
+        top: RFPercentage(18),
+        right: 0
     }
 })
 
