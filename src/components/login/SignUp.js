@@ -1,28 +1,19 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image} from 'react-native'
 import { RFPercentage } from "react-native-responsive-fontsize";
-import FormLogin from './FormLogin'
 
-class Login extends Component{
+import Form from '../Form'
+
+class SignUp extends Component{
 
     state = {
         loading:false
     }
 
-    handlerLogin= async (data, normal=null)=>{
+    handlerLogin= async (data)=>{
         this.setState({loading: true})
-        let messageError;
-        let url = 'https://backend-blush-five.vercel.app/user/login';
-        if(normal){
-            url = 'https://backend-blush-five.vercel.app/user/login/lessNetwork'
-            messageError = 'No existe ninguna cuenta o tu contraseña no es correcta'
-        }else{
-            const {name, id} = data
-            data = {name, id}
-            messageError = 'Tu cuenta social no a sido vinculada'
-        }
         try{
-            const response =  await  fetch(url,{
+            const response =  await  fetch('https://backend-blush-five.vercel.app/user',{
                     method: 'POST',
                     headers:{
                         Accept: 'application/json',
@@ -31,22 +22,11 @@ class Login extends Component{
                     body: JSON.stringify(data)
                 })
             
-            try{
-                const user = await response.json()
-                this.props.navigation.navigate('home', user)
-            }catch(err){
-                alert(messageError)
-                this.setState({
-                    loading: false
-                })
-            }
-            
+            const user = await response.json()
 
+            this.props.navigation.navigate('home', user)
         }catch(err){
-            alert('Error intenta de nuevo')
-            this.setState({
-                loading:false
-            })
+            console.log(err)
         }
     }
 
@@ -65,7 +45,7 @@ class Login extends Component{
                         Hola!
                     </Text>
                     <Image style={style.logo} source={require('../../assets/logo-2.png')} />      
-                    <FormLogin navigation={this.props.navigation} handlerLogin={this.handlerLogin}/>
+                    <Form  handlerLogin={this.handlerLogin}/>
                 </>   
             )
         }
@@ -108,4 +88,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default Login
+export default SignUp

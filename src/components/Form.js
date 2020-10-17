@@ -13,10 +13,11 @@ class Form extends Component{
 
     handleChange = (name, value)=>{
         const fields = this.state.fields
+        const obj = {[name]: value}
         this.setState({
             fields:{
                 ...fields,
-                [name]: value
+                ...obj
             },
             empity: false
         })

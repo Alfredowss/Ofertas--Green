@@ -19,29 +19,29 @@ import {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       
+      console.log(userInfo)
+
       let user = {
-        picture:{
-            data:{
-                url: userInfo.user.photo
-            }
-        },
+        photo: userInfo.user.photo,
         name: userInfo.user.name,
+        id: userInfo.user.id
       }
 
-      props.navigation.navigate('home', user)
+      props.handlerLogin(user)
+
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
-        console.log('error')
+        console.log('error cancelado')
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
-        console.log('error')
+        console.log('error in progress')
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
-        console.log('error')
+        console.log('error play service not available')
       } else {
         // some other error happened
-        console.log('error')
+        console.log('error from service google')
       }
     }
   };

@@ -7,7 +7,7 @@ import ItemCategory from './ItemCategory'
 class Feed extends React.Component {
     
     state = {
-        forMe: [{name: 'Tiendita', owner: 'Jose', id: '1'},{name: 'Tiendita', owner: 'Jose', id: '1'},{name: 'Tiendita', owner: 'Jose', id: '1'} ,{name: 'Tiendita', owner: 'Jose', id: '1'}, {name: 'La Escondida', owner: 'Lilia bonita', id:'2'}],
+        forMe: [{name: 'Tiendita', owner: 'Jose', id: '1'},{name: 'Tiendita', owner: 'Jose', id: '3'},{name: 'Tiendita', owner: 'Jose', id: '13'} ,{name: 'Tiendita', owner: 'Jose', id: '133'}, {name: 'La Escondida', owner: 'Lilia bonita', id:'32'}],
         suggestForMe: null,
         categories: null
     }

@@ -8,7 +8,7 @@ class Profile extends React.Component{
 
     state = {
         add: [{type: 'store', id: 1}, {type: 'other', id: 4}],
-        data: []
+        data: [{type: 'Tiendas dment', id: 1}, {type: 'Autos', id: 4}, {type: 'Hipotecario', id: 3}, {type: 'Tarjeta de credito', id: 8}]
     }
 
     constructor(props){
@@ -16,6 +16,15 @@ class Profile extends React.Component{
         this.navigation = props.navigation
         this.user =  props.route.params.user
         this.text = null
+    }
+
+    componentDidMount(){
+        fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyCshggT2C0jJqK2WJbsYNSUZ9TN7VPyTtM`
+        ).then((response)=>{
+            return response.json()
+        }).then((data)=>{
+            console.log(data)
+        })
     }
 
     handleEnter=()=>{
@@ -39,6 +48,18 @@ class Profile extends React.Component{
        this.text = text
     }
 
+    handleQuitTicket=(id)=>{
+        console.log(id)
+        let {add, data} = this.state
+        data = data.filter((item)=>item.id != id)
+        this.setState({
+            add,
+            data
+        })
+    }
+
+
+
     render(){
         return (      
             <View style={style.profileContainer}>
@@ -60,17 +81,18 @@ class Profile extends React.Component{
                     onSubmitEditing={this.handleEnter}
                 />
                 <View style={style.addTicketContainer}>
-                    <FlatList numColumns={3} 
+                    <FlatList numColumns={2} 
                     data={this.state.add} 
                     keyExtractor={(item)=>item.id} 
                     renderItem={Ticket}/>
                 </View>
                 <View style={style.ticketContainer}>
                     <FlatList 
-                    numColumns={3} 
+                    numColumns={2} 
                     data={this.state.data} 
                     keyExtractor={(item)=>item.id} 
-                    renderItem={TicketGray}/>
+                    renderItem={({item})=>TicketGray(item, this.handleQuitTicket)}
+                    />
                 </View>
                 <Pressable 
                     style={style.buttonContainer} 
@@ -149,7 +171,18 @@ class Profile extends React.Component{
     },
     ticketContainer:{
         paddingTop: RFPercentage(14),
-    }
+    },
+    ticket:{
+        backgroundColor: 'gray',
+        padding: RFPercentage(1),
+        minWidth: RFPercentage(20),
+        marginRight: RFPercentage(1),
+        marginLeft: RFPercentage(1),
+        marginBottom: RFPercentage(2.6),
+        borderRadius: RFPercentage(1),
+        color: '#000000',
+        fontSize: RFPercentage(1.9)
+    },
   })
 
   export default Profile
