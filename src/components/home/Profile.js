@@ -7,7 +7,7 @@ import TicketGray from './TicketGray'
 class Profile extends React.Component{
 
     state = {
-        add: [{type: 'store', id: 1}, {type: 'other', id: 4}],
+        add: [],
         data: [{type: 'Tiendas dment', id: 1}, {type: 'Autos', id: 4}, {type: 'Hipotecario', id: 3}, {type: 'Tarjeta de credito', id: 8}]
     }
 
@@ -18,9 +18,6 @@ class Profile extends React.Component{
         this.text = null
     }
 
-    componentWillUnmount(){
-        
-    }
 
     componentDidMount(){
         fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyCshggT2C0jJqK2WJbsYNSUZ9TN7VPyTtM`
@@ -53,7 +50,6 @@ class Profile extends React.Component{
     }
 
     handleQuitTicket=(id)=>{
-        console.log(id)
         let {add, data} = this.state
         data = data.filter((item)=>item.id != id)
         this.setState({
@@ -62,6 +58,25 @@ class Profile extends React.Component{
         })
     }
 
+    handleSubmit=()=>{
+        let id = this.user.id
+        let add = this.state.add.map(item=>item.type)
+        let data = this.state.data.map(item=>item.type)
+        add = [...add, ...data]
+        let body = {
+            preferences: add
+        }
+        fetch(`https://backend-blush-five.vercel.app/user/${id}`,{
+            method: 'PATCH',
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        }).then(()=>{
+            this.navigation.navigate('feed')
+        })
+    }
 
 
     render(){
@@ -100,7 +115,7 @@ class Profile extends React.Component{
                 </View>
                 <Pressable 
                     style={style.buttonContainer} 
-                    onPress={() => this.navigation.navigate('feed')}>
+                    onPress={this.handleSubmit}>
                     <Text style={style.button}>
                         ACEPTAR
                     </Text>
