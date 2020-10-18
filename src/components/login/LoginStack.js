@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Welcome from './Welcome'
 import SignUp from './SignUp'
 import Login from './Login'
+import Map from '../home/Map'
 
 const Stack = createStackNavigator()
 

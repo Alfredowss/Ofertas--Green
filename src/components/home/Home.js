@@ -9,9 +9,10 @@ import {
 
 import { RFPercentage } from "react-native-responsive-fontsize";
 
+
+//components
 import Feed from './Feed'
 import Profile from './Profile'
-
 
 
 
