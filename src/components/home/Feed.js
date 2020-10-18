@@ -9,7 +9,7 @@ import { ForceTouchGestureHandler } from 'react-native-gesture-handler';
 class Feed extends React.Component {
     
     state = {
-        forMe: [{name: 'Tiendita', owner: 'Jose', id: '1'},{name: 'Tiendita', owner: 'Jose', id: '3'},{name: 'Tiendita', owner: 'Jose', id: '13'} ,{name: 'Tiendita', owner: 'Jose', id: '133'}, {name: 'La Escondida', owner: 'Lilia bonita', id:'32'}],
+        forMe: [],
         loadingPlaces: true,
         photo: null,
         placesData: []
@@ -27,7 +27,7 @@ class Feed extends React.Component {
 
     componentDidMount(){
          Geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
-            fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=15000&type=all&keyword=all&key=AIzaSyCshggT2C0jJqK2WJbsYNSUZ9TN7VPyTtM`
+            fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=15000&keyword=all&key=AIzaSyCshggT2C0jJqK2WJbsYNSUZ9TN7VPyTtM`
             ).then((response)=>{
                 return response.json()
             }).then((data)=>{
@@ -64,14 +64,19 @@ class Feed extends React.Component {
                     )
                 })
 
-                console.log(photos, 'no mms')
+               fetch('https://backend.alfredowss.vercel.app/user/products').then((res)=>{
+                   return res.json()
+               }).then((data)=>{
+                   this.setState({
+                    forMe: [...this.state.forMe, ...data],
+                    loadingPlaces: false,
+                    placesData: [...this.state.placesData]
+                   })
+               }).catch((err)=>{
+                   alert('Error, in the server')
+               })
 
-                // const arrayOfPhotos = arrayOfdata.map((data)=>data.photo_reference)
-                // console.log(arrayOfPhotos, 'heeee')
-                //console.log(data.results[1].photos[0].photo_reference, "this")
-                // const photo = data.results[1].photos[0].photo_reference
-                // const 
-                //console.log(arrayOfdata, 'aqui perro')
+
                 this.setState({
                     forMe: [...this.state.forMe],
                     loadingPlaces: false,
