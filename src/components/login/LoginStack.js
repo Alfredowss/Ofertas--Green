@@ -4,6 +4,7 @@ import Welcome from './Welcome'
 import SignUp from './SignUp'
 import Login from './Login'
 import Map from '../home/Map'
+import Feed from '../home/Feed'
 
 const Stack = createStackNavigator()
 
